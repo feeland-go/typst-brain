@@ -1,0 +1,29 @@
+# Handout mode
+
+If you distribute your slides after your talk for further reference, you might
+not want to keep in all the dynamic content.
+Imagine using `item-by-item` on a long list and readers having to scroll through
+endless pages when they just want to see the full list.
+
+You can use `#enable-handout-mode(true)` at the top of your code to achieve
+this:
+
+It has the effect that all dynamic visibility of elements that reserve space
+is switched off.
+For example,
+
+#enable-handout-mode(true)
+// ...
+#slide[
+  Some text.
+  #uncover("3-")[You cannot always see this.]
+  Or can you?
+  #show: later
+
+  And what about this?
+]
+
+becomes:
+
+Note that `only` and `alternatives` are not affected as there is no obvious
+way to unify their content to one slide.
