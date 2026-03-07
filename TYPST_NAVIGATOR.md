@@ -2,7 +2,7 @@
 typst_min_version: "0.12.0"
 typst_max_version: "0.14.x"
 updated_at: "2026-03-07"
-token_count: 785
+token_count: 1013
 last_audit_date: ""
 ---
 
@@ -10,6 +10,11 @@ last_audit_date: ""
 
 > Baca file ini PERTAMA. Gunakan tag-based routing di bawah untuk memuat chunk yang relevan.
 > JANGAN baca semua chunks — hanya yang dibutuhkan oleh tags.
+
+## Contextual Scoping (READ THIS FIRST)
+Periksa di direktori mana Anda (LLM) sedang beroperasi:
+- **JIKA ANDA BERADA DI LUAR REPO `typst-brain` (e.g. `~/Documents/MyProject`)**: File ini murni berfungsi sebagai **Read-Only Navigator**. Anda HANYA diizinkan untuk membaca `chunks/`, `fonts/`, `memory/`, dan `packages/`. JANGAN PERNAH mencoba menjalankan *script scraping* atau memodifikasi isi Brain dari luar.
+- **JIKA ANDA BERADA DI DALAM REPO `typst-brain`**: Anda bertindak sebagai **Brain Administrator**. Anda diizinkan mengeksekusi `.agents/workflows/` untuk menambah package baru atau memperbarui dokumentasi inti Typst.
 
 ## Quick Start
 - **Draft standar** → Baca `core/quick-reference.md` saja
@@ -32,7 +37,9 @@ Jika LLM membutuhkan dokumentasi detail tentang fungsi bawaan Typst:
 
 Jika LLM membutuhkan dokumentasi spesifik *package* pihak ketiga (misal Touying, Tablex):
 1. Buka `packages/<nama_package>/_index.md`.
-2. Jika file tidak ada, Anda **HARUS** melakukan *scraping* terlebih dahulu menggunakan panduan Agentic Workflow:
+2. Jika file tidak ada:
+   - **Jika Anda di luar `typst-brain`**: Laporkan ke *user* bahwa *package* belum tersedia di Brain dan minta *user* untuk membuka jendela _chat_ baru di dalam folder `typst-brain` untuk melakukan _scraping_. Jangan *scrape* dari luar.
+   - **Jika Anda di dalam `typst-brain`**: Anda **HARUS** melakukan *scraping* terlebih dahulu menggunakan panduan Agentic Workflow:
    - Baca `.agents/workflows/scrape-universe.md` untuk package Typst Universe standar.
    - Baca `.agents/workflows/scrape-github.md` jika Anda diberi link GitHub.
    - Baca `.agents/workflows/scrape-mdbook.md` jika Anda diberi link manual berformat buku.
