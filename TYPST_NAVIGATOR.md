@@ -2,7 +2,7 @@
 typst_min_version: "0.12.0"
 typst_max_version: "0.14.x"
 updated_at: "2026-03-07"
-token_count: 641
+token_count: 754
 last_audit_date: ""
 ---
 
@@ -21,16 +21,20 @@ last_audit_date: ""
 |-----|-------------------|---------|
 | needs-basic | `core/quick-reference.md` | Selalu aktif untuk task .typ |
 | needs-docs | CLI: `python3 $TYPST_BRAIN_HOME/scripts/search_docs.py "keyword"` | "dokumentasi", "fungsi", "tabel", "rumus", "math", "layout", "scripting", "styling" |
-| needs-package | `packages/_index.md` → `packages/{name}.md` | "gunakan {package}", "@preview/" |
 | needs-template | `templates/_index.md` → `templates/{name}.md` | "template {name}" |
+| needs-package | `packages/_index.md` → `packages/{name}.md` | "gunakan {package}", "@preview/" |
+| needs-package-docs| CLI: `python3 $TYPST_BRAIN_HOME/scripts/search_packages.py "package" "keyword"` | "dokumentasi package X", "cara konfigurasi fungsi package" |
 | needs-slides | `slides/slides-quickref.md` | "presentasi", "slide", "deck" |
 | needs-font | CLI: `typst fonts --font-path $TYPST_BRAIN_HOME/fonts \| grep` | "font X", compile error font |
 
-## How to use needs-docs
-Jika LLM membutuhkan dokumentasi detail tentang fungsi atau topik spesifik yang tidak ada di `core/quick-reference.md`:
+## How to use needs-docs & needs-package-docs
+Jika LLM membutuhkan dokumentasi detail tentang fungsi bawaan Typst:
 1. Jalankan CLI tool: `python3 $TYPST_BRAIN_HOME/scripts/search_docs.py "nama_fungsi"`
-2. Skrip akan mengembalikan path ke file markdown spesifik (contoh: `chunks/docs/math/frac.md`).
-3. Baca **hanya file yang dikembalikan** tersebut. Jangan menebak path.
+
+Jika LLM membutuhkan dokumentasi spesifik konfigurasi dari sebuah *package* pihak ketiga (misal Touying, Tablex):
+1. Pastikan package itu sudah di-scrape: cek `packages/<nama_package>.md`. Jika belum, scrape: `python3 $TYPST_BRAIN_HOME/scripts/scrape_package.py <nama_package>`.
+2. Lakukan pencarian spesifik: `python3 $TYPST_BRAIN_HOME/scripts/search_packages.py <nama_package> "<kata_kunci>"`.
+3. Baca **hanya output CLI tersebut**. Jangan membuka file full README secara langsung!
 
 ## Disambiguation Rules
 - **"template"**: ada "@preview/" → needs-template. Ada "function"/"reusable" → needs-script. Ada "slide" → needs-slides. Default: needs-template.

@@ -60,36 +60,73 @@ def fetch_url(url, max_retries=2):
                 raise
     return None
 
-def extract_package_info(html, name):
+import html
+
+def html_to_md(h):
+    # Remove scripts, svgs, a few noise classes
+    h = re.sub(r'<script.*?</script>', '', h, flags=re.DOTALL)
+    h = re.sub(r'<svg.*?</svg>', '', h, flags=re.DOTALL)
+    h = re.sub(r'class="[^"]+"', '', h)
+    
+    # Pre blocks (code blocks)
+    def repl_pre(m):
+        code_html = m.group(1)
+        code = re.sub(r'<[^>]+>', '', code_html)
+        return f"\n```typst\n{html.unescape(code).strip()}\n```\n"
+    h = re.sub(r'<pre(?:[^>]*)><code>(.*?)</code></pre>', repl_pre, h, flags=re.DOTALL)
+    
+    # Inline code
+    h = re.sub(r'<code[^>]*>(.*?)</code>', lambda m: f"`{html.unescape(m.group(1))}`", h)
+    
+    # Headings
+    h = re.sub(r'<h1[^>]*>(.*?)</h1\s*>', lambda m: f"\n\n# {html.unescape(re.sub(r'<[^>]+>', '', m.group(1)).strip())}\n", h)
+    h = re.sub(r'<h2[^>]*>(.*?)</h2\s*>', lambda m: f"\n\n## {html.unescape(re.sub(r'<[^>]+>', '', m.group(1)).strip())}\n", h)
+    h = re.sub(r'<h3[^>]*>(.*?)</h3\s*>', lambda m: f"\n\n### {html.unescape(re.sub(r'<[^>]+>', '', m.group(1)).strip())}\n", h)
+    h = re.sub(r'<h4[^>]*>(.*?)</h4\s*>', lambda m: f"\n\n#### {html.unescape(re.sub(r'<[^>]+>', '', m.group(1)).strip())}\n", h)
+    
+    # Lists
+    h = re.sub(r'<li[^>]*>(.*?)</li>', lambda m: f"* {html.unescape(re.sub(r'<[^>]+>', '', m.group(1)).strip())}\n", h, flags=re.DOTALL)
+    
+    # Paragraphs (just strip tags and add newlines)
+    h = re.sub(r'<p[^>]*>(.*?)</p>', lambda m: f"{html.unescape(re.sub(r'<[^>]+>', '', m.group(1)).strip())}\n\n", h, flags=re.DOTALL)
+    
+    # Strip all remaining tags
+    h = re.sub(r'<[^>]+>', '', h)
+    
+    # Clean whitespace
+    h = re.sub(r'\n{3,}', '\n\n', h)
+    return h.strip()
+
+def extract_package_info(html_str, name):
     """Extract key info from Universe package page."""
     info = {"name": name, "version": "", "description": "", "license": "",
             "import_stmt": "", "examples": [], "link": f"https://typst.app/universe/package/{name}"}
 
     # Version
-    m = re.search(r'<h1[^>]*>\s*' + re.escape(name) + r'\s*</h1>\s*<[^>]*>([0-9.]+)', html)
+    m = re.search(r'<h1[^>]*>\s*' + re.escape(name) + r'\s*</h1>\s*<[^>]*>([0-9.]+)', html_str)
     if m: info["version"] = m.group(1)
 
     # Try to find version from badge or other pattern
     if not info["version"]:
-        m = re.search(r'version["\s:-]*(\d+\.\d+\.\d+)', html)
+        m = re.search(r'version["\s:-]*(\d+\.\d+\.\d+)', html_str)
         if m: info["version"] = m.group(1)
 
     # License
-    m = re.search(r'License:\s*</dt>\s*<dd[^>]*>\s*([^<]+)', html, re.DOTALL)
+    m = re.search(r'License:\s*</dt>\s*<dd[^>]*>\s*([^<]+)', html_str, re.DOTALL)
     if m: info["license"] = m.group(1).strip()
 
     # Import statement
     info["import_stmt"] = f'#import "@preview/{name}:{info["version"]}": *'
 
     # Code examples (first 2)
-    examples = re.findall(r'<code[^>]*>(.*?)</code>', html, re.DOTALL)
+    examples = re.findall(r'<code[^>]*>(.*?)</code>', html_str, re.DOTALL)
     for ex in examples[:2]:
         clean = re.sub(r'<[^>]+>', '', ex).strip()
         if len(clean) > 20 and ('#' in clean or name in clean.lower()):
             info["examples"].append(clean[:300])
 
     # Description: first paragraph after h1
-    m = re.search(r'<p[^>]*>([^<]{20,300})', html)
+    m = re.search(r'<p[^>]*>([^<]{20,300})', html_str)
     if m: info["description"] = re.sub(r'<[^>]+>', '', m.group(1)).strip()[:200]
 
     return info
@@ -144,9 +181,12 @@ if __name__ == "__main__":
 
     url = f"https://typst.app/universe/package/{name}"
     print(f"Scraping {url}...")
-    html = fetch_url(url)
+    html_text = fetch_url(url)
+    if not html_text:
+        print(f"ERROR: Could not fetch {url}", file=sys.stderr)
+        sys.exit(1)
 
-    info = extract_package_info(html, name)
+    info = extract_package_info(html_text, name)
 
     # License check
     if info["license"] and not is_license_permissive(info["license"]):
@@ -161,3 +201,22 @@ if __name__ == "__main__":
     update_index(name, info["version"], info["description"])
     chars = len(md)
     print(f"✓ Saved {output_path} (~{chars//4} tokens)")
+
+    # 2) Save Full Documentation (Layer 2)
+    docs_dir = os.path.join(PKG_DIR, "docs")
+    os.makedirs(docs_dir, exist_ok=True)
+    docs_out = os.path.join(docs_dir, f"{name}.md")
+    
+    m_readme = re.search(r'<div class="readme.*?(?=</main>|<aside)', html_text, re.DOTALL)
+    if not m_readme:
+        m_readme = re.search(r'<main.*?>(.*?)</main>', html_text, re.DOTALL)
+        
+    if m_readme:
+        readme_md = html_to_md(m_readme.group(1))
+        # Add a frontmatter metadata
+        front = f"---\npackage: {name}\nversion: {info['version']}\nurl: {url}\n---\n\n"
+        with open(docs_out, 'w', encoding='utf-8') as f:
+            f.write(front + readme_md)
+        print(f"✓ Saved Full Docs {docs_out} (~{len(readme_md)//4} tokens)")
+    else:
+        print(f"⚠ Could not find README content for {name}")
