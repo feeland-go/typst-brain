@@ -248,7 +248,7 @@
   {
     "category": "html",
     "topic": "index",
-    "summary": "Typst's HTML export is currently under active development. The feature is still very incomplete and only available for experimentation behind a featur",
+    "summary": "Reference HTML HTML Typst's HTML export is currently under active development. The feature is still very incomplete and only available for experimenta",
     "file": "chunks/docs/html/index.md"
   },
   {
@@ -494,7 +494,7 @@
   {
     "category": "math",
     "topic": "index",
-    "summary": "Typst has special [syntax] and library functions to typeset mathematical formulas. Math formulas can be displayed inline with text or as separate bloc",
+    "summary": "Typst has special syntax and library functions to typeset mathematical formulas. Math formulas can be displayed inline with text or as separate blocks",
     "file": "chunks/docs/math/index.md"
   },
   {
@@ -566,7 +566,7 @@
   {
     "category": "math",
     "topic": "primes",
-    "summary": "Grouped primes.   ``` $ a'''_b = a^'''_b $",
+    "summary": "Grouped primes.",
     "file": "chunks/docs/math/primes.md"
   },
   {
@@ -638,7 +638,7 @@
   {
     "category": "model",
     "topic": "emph",
-    "summary": "Emphasizes content by toggling italics.   If the current [text style] is `\"normal\"`, this turns it into `\"italic\"`.  If it is already `\"italic\"` or `\"",
+    "summary": "Emphasizes content by toggling italics.",
     "file": "chunks/docs/model/emph.md"
   },
   {
@@ -962,7 +962,7 @@
   {
     "category": "visualize",
     "topic": "path",
-    "summary": "A path through a list of points, connected by B\u00e9zier curves.",
+    "summary": "",
     "file": "chunks/docs/visualize/path.md"
   },
   {

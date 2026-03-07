@@ -4,28 +4,19 @@ category: foundations
 topic: bool
 ---
 
-[  ] 
-   
-  [Reference] 
-   
-  [Foundations] 
-   
-  [Boolean] 
-  
 
-#  bool  
+# bool (foundations)
 
 A type with two states.
- 
 
-The boolean type has two values: `true` and `false`. It denotes whether something is active or enabled.
- 
+## Examples
 
-## Example 
-```
+```typst
 #false \
 #true \
 #(1 < 2)
-
 ```
- [AutoPrevious page] [BytesNext page]
+
+## Overview
+
+Reference Foundations Boolean bool A type with two states. The boolean type has two values: true and false. It denotes whether something is active or enabled. Example #false \ #true \ #(1 < 2)

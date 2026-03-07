@@ -4,29 +4,17 @@ category: foundations
 topic: none
 ---
 
-[  ] 
-   
-  [Reference] 
-   
-  [Foundations] 
-   
-  [None] 
-  
 
-#  none  
+# none (foundations)
 
 A value that indicates the absence of any other value.
- 
 
-The none type has exactly one value: `none`.
- 
+## Examples
 
-When inserted into the document, it is not visible. This is also the value that is produced by empty code blocks. It can be [joined] with any value, yielding the other value.
- 
-
-## Example 
-```
+```typst
 Not visible: #none
-
 ```
- [ModulePrevious page] [PanicNext page]
+
+## Overview
+
+Reference Foundations None none A value that indicates the absence of any other value. The none type has exactly one value: none. When inserted into the document, it is not visible. This is also the value that is produced by empty code blocks. It can be joined with any value, yielding the other value. Example Not visible: #none
