@@ -31,6 +31,13 @@ last_audit_date: ""
 | needs-template | `templates/_index.md` → `templates/{name}.md` | "template {name}" |
 | needs-slides | `slides/slides-quickref.md` | "presentasi", "slide", "deck" |
 | needs-font | CLI: `typst fonts --font-path $TYPST_BRAIN_HOME/fonts \| grep` | "font X", compile error font |
+| needs-docs | CLI: `python3 $TYPST_BRAIN_HOME/scripts/search_docs.py "keyword"` | "dokumentasi", "cara menggunakan fungsi", "referensi resmi" |
+
+## How to use needs-docs
+Jika LLM membutuhkan dokumentasi detail tentang fungsi atau topik spesifik yang tidak ada di `core/quick-reference.md`:
+1. Jalankan CLI tool: `python3 $TYPST_BRAIN_HOME/scripts/search_docs.py "nama_fungsi"`
+2. Skrip akan mengembalikan path ke file markdown spesifik (contoh: `chunks/docs/math/frac.md`).
+3. Baca **hanya file yang dikembalikan** tersebut. Jangan menebak path.
 
 ## Disambiguation Rules
 - **"template"**: ada "@preview/" → needs-template. Ada "function"/"reusable" → needs-script. Ada "slide" → needs-slides. Default: needs-template.

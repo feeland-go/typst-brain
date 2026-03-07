@@ -1,0 +1,998 @@
+[
+  {
+    "category": "context",
+    "topic": "index",
+    "summary": "Sometimes, we want to create content that reacts to its location in the document. This could be a localized phrase that depends on the configured text",
+    "file": "chunks/docs/context/index.md"
+  },
+  {
+    "category": "data-loading",
+    "topic": "index",
+    "summary": "Data loading from external files.",
+    "file": "chunks/docs/data-loading/index.md"
+  },
+  {
+    "category": "data-loading",
+    "topic": "cbor",
+    "summary": "Reads structured data from a CBOR file.",
+    "file": "chunks/docs/data-loading/cbor.md"
+  },
+  {
+    "category": "data-loading",
+    "topic": "csv",
+    "summary": "Reads structured data from a CSV file.",
+    "file": "chunks/docs/data-loading/csv.md"
+  },
+  {
+    "category": "data-loading",
+    "topic": "json",
+    "summary": "Reads structured data from a JSON file.",
+    "file": "chunks/docs/data-loading/json.md"
+  },
+  {
+    "category": "data-loading",
+    "topic": "read",
+    "summary": "Reads plain text or data from a file.",
+    "file": "chunks/docs/data-loading/read.md"
+  },
+  {
+    "category": "data-loading",
+    "topic": "toml",
+    "summary": "Reads structured data from a TOML file.",
+    "file": "chunks/docs/data-loading/toml.md"
+  },
+  {
+    "category": "data-loading",
+    "topic": "xml",
+    "summary": "Reads structured data from an XML file.",
+    "file": "chunks/docs/data-loading/xml.md"
+  },
+  {
+    "category": "data-loading",
+    "topic": "yaml",
+    "summary": "Reads structured data from a YAML file.",
+    "file": "chunks/docs/data-loading/yaml.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "index",
+    "summary": "Foundational types and functions.",
+    "file": "chunks/docs/foundations/index.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "arguments",
+    "summary": "Captured arguments to a function.",
+    "file": "chunks/docs/foundations/arguments.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "array",
+    "summary": "A sequence of values.",
+    "file": "chunks/docs/foundations/array.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "assert",
+    "summary": "Ensures that a condition is fulfilled.",
+    "file": "chunks/docs/foundations/assert.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "auto",
+    "summary": "A value that indicates a smart default.",
+    "file": "chunks/docs/foundations/auto.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "bool",
+    "summary": "A type with two states.",
+    "file": "chunks/docs/foundations/bool.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "bytes",
+    "summary": "A sequence of bytes.",
+    "file": "chunks/docs/foundations/bytes.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "calc",
+    "summary": "Module for calculations and processing of numeric values.",
+    "file": "chunks/docs/foundations/calc.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "content",
+    "summary": "A piece of document content.",
+    "file": "chunks/docs/foundations/content.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "datetime",
+    "summary": "Represents a date, a time, or a combination of both.",
+    "file": "chunks/docs/foundations/datetime.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "decimal",
+    "summary": "A fixed-point decimal number type.",
+    "file": "chunks/docs/foundations/decimal.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "dictionary",
+    "summary": "A map from string keys to values.",
+    "file": "chunks/docs/foundations/dictionary.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "duration",
+    "summary": "Represents a positive or negative span of time.",
+    "file": "chunks/docs/foundations/duration.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "eval",
+    "summary": "Evaluates a string as Typst code.",
+    "file": "chunks/docs/foundations/eval.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "float",
+    "summary": "A floating-point number.",
+    "file": "chunks/docs/foundations/float.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "function",
+    "summary": "A mapping from argument values to a return value.",
+    "file": "chunks/docs/foundations/function.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "int",
+    "summary": "A whole number.",
+    "file": "chunks/docs/foundations/int.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "label",
+    "summary": "A label for an element.",
+    "file": "chunks/docs/foundations/label.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "module",
+    "summary": "A collection of variables and functions that are commonly related to a single theme.",
+    "file": "chunks/docs/foundations/module.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "none",
+    "summary": "A value that indicates the absence of any other value.",
+    "file": "chunks/docs/foundations/none.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "panic",
+    "summary": "Fails with an error.",
+    "file": "chunks/docs/foundations/panic.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "plugin",
+    "summary": "Loads a WebAssembly module.",
+    "file": "chunks/docs/foundations/plugin.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "regex",
+    "summary": "A regular expression.",
+    "file": "chunks/docs/foundations/regex.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "repr",
+    "summary": "Returns the string representation of a value.",
+    "file": "chunks/docs/foundations/repr.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "selector",
+    "summary": "A filter for selecting elements within the document.",
+    "file": "chunks/docs/foundations/selector.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "std",
+    "summary": "A module that contains all globally accessible items.",
+    "file": "chunks/docs/foundations/std.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "str",
+    "summary": "A sequence of Unicode codepoints.",
+    "file": "chunks/docs/foundations/str.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "symbol",
+    "summary": "A Unicode symbol.",
+    "file": "chunks/docs/foundations/symbol.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "sys",
+    "summary": "Module for system interactions.",
+    "file": "chunks/docs/foundations/sys.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "target",
+    "summary": "Returns the current export target.",
+    "file": "chunks/docs/foundations/target.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "type",
+    "summary": "Describes a kind of value.",
+    "file": "chunks/docs/foundations/type.md"
+  },
+  {
+    "category": "foundations",
+    "topic": "version",
+    "summary": "A version with an arbitrary number of components.",
+    "file": "chunks/docs/foundations/version.md"
+  },
+  {
+    "category": "html",
+    "topic": "index",
+    "summary": "Typst's HTML export is currently under active development. The feature is still very incomplete and only available for experimentation behind a featur",
+    "file": "chunks/docs/html/index.md"
+  },
+  {
+    "category": "html",
+    "topic": "elem",
+    "summary": "An HTML element that can contain Typst content.",
+    "file": "chunks/docs/html/elem.md"
+  },
+  {
+    "category": "html",
+    "topic": "frame",
+    "summary": "An element that lays out its content as an inline SVG.",
+    "file": "chunks/docs/html/frame.md"
+  },
+  {
+    "category": "html",
+    "topic": "typed",
+    "summary": "A typed layer over raw HTML elements.",
+    "file": "chunks/docs/html/typed.md"
+  },
+  {
+    "category": "introspection",
+    "topic": "index",
+    "summary": "Interactions between document parts.",
+    "file": "chunks/docs/introspection/index.md"
+  },
+  {
+    "category": "introspection",
+    "topic": "counter",
+    "summary": "Counts through pages, elements, and more.",
+    "file": "chunks/docs/introspection/counter.md"
+  },
+  {
+    "category": "introspection",
+    "topic": "here",
+    "summary": "Provides the current location in the document.",
+    "file": "chunks/docs/introspection/here.md"
+  },
+  {
+    "category": "introspection",
+    "topic": "locate",
+    "summary": "Determines the location of an element in the document.",
+    "file": "chunks/docs/introspection/locate.md"
+  },
+  {
+    "category": "introspection",
+    "topic": "location",
+    "summary": "Identifies an element in the document.",
+    "file": "chunks/docs/introspection/location.md"
+  },
+  {
+    "category": "introspection",
+    "topic": "metadata",
+    "summary": "Exposes a value to the query system without producing visible content.",
+    "file": "chunks/docs/introspection/metadata.md"
+  },
+  {
+    "category": "introspection",
+    "topic": "query",
+    "summary": "Finds elements in the document.",
+    "file": "chunks/docs/introspection/query.md"
+  },
+  {
+    "category": "introspection",
+    "topic": "state",
+    "summary": "Manages stateful parts of your document.",
+    "file": "chunks/docs/introspection/state.md"
+  },
+  {
+    "category": "layout",
+    "topic": "index",
+    "summary": "Arranging elements on the page in different ways.",
+    "file": "chunks/docs/layout/index.md"
+  },
+  {
+    "category": "layout",
+    "topic": "align",
+    "summary": "Aligns content horizontally and vertically.",
+    "file": "chunks/docs/layout/align.md"
+  },
+  {
+    "category": "layout",
+    "topic": "alignment",
+    "summary": "Where to align something along an axis.",
+    "file": "chunks/docs/layout/alignment.md"
+  },
+  {
+    "category": "layout",
+    "topic": "angle",
+    "summary": "An angle describing a rotation.",
+    "file": "chunks/docs/layout/angle.md"
+  },
+  {
+    "category": "layout",
+    "topic": "block",
+    "summary": "A block-level container.",
+    "file": "chunks/docs/layout/block.md"
+  },
+  {
+    "category": "layout",
+    "topic": "box",
+    "summary": "An inline-level container that sizes content.",
+    "file": "chunks/docs/layout/box.md"
+  },
+  {
+    "category": "layout",
+    "topic": "colbreak",
+    "summary": "Forces a column break.",
+    "file": "chunks/docs/layout/colbreak.md"
+  },
+  {
+    "category": "layout",
+    "topic": "columns",
+    "summary": "Separates a region into multiple equally sized columns.",
+    "file": "chunks/docs/layout/columns.md"
+  },
+  {
+    "category": "layout",
+    "topic": "direction",
+    "summary": "The four directions into which content can be laid out.",
+    "file": "chunks/docs/layout/direction.md"
+  },
+  {
+    "category": "layout",
+    "topic": "fraction",
+    "summary": "Defines how the remaining space in a layout is distributed.",
+    "file": "chunks/docs/layout/fraction.md"
+  },
+  {
+    "category": "layout",
+    "topic": "grid",
+    "summary": "Arranges content in a grid.",
+    "file": "chunks/docs/layout/grid.md"
+  },
+  {
+    "category": "layout",
+    "topic": "h",
+    "summary": "Inserts horizontal spacing into a paragraph.",
+    "file": "chunks/docs/layout/h.md"
+  },
+  {
+    "category": "layout",
+    "topic": "hide",
+    "summary": "Hides content without affecting layout.",
+    "file": "chunks/docs/layout/hide.md"
+  },
+  {
+    "category": "layout",
+    "topic": "layout",
+    "summary": "Provides access to the current outer container's (or page's, if none) dimensions (width and height).",
+    "file": "chunks/docs/layout/layout.md"
+  },
+  {
+    "category": "layout",
+    "topic": "length",
+    "summary": "A size or distance, possibly expressed with contextual units.",
+    "file": "chunks/docs/layout/length.md"
+  },
+  {
+    "category": "layout",
+    "topic": "measure",
+    "summary": "Measures the layouted size of content.",
+    "file": "chunks/docs/layout/measure.md"
+  },
+  {
+    "category": "layout",
+    "topic": "move",
+    "summary": "Moves content without affecting layout.",
+    "file": "chunks/docs/layout/move.md"
+  },
+  {
+    "category": "layout",
+    "topic": "pad",
+    "summary": "Adds spacing around content.",
+    "file": "chunks/docs/layout/pad.md"
+  },
+  {
+    "category": "layout",
+    "topic": "page",
+    "summary": "Layouts its child onto one or multiple pages.",
+    "file": "chunks/docs/layout/page.md"
+  },
+  {
+    "category": "layout",
+    "topic": "pagebreak",
+    "summary": "A manual page break.",
+    "file": "chunks/docs/layout/pagebreak.md"
+  },
+  {
+    "category": "layout",
+    "topic": "place",
+    "summary": "Places content relatively to its parent container.",
+    "file": "chunks/docs/layout/place.md"
+  },
+  {
+    "category": "layout",
+    "topic": "ratio",
+    "summary": "A ratio of a whole.",
+    "file": "chunks/docs/layout/ratio.md"
+  },
+  {
+    "category": "layout",
+    "topic": "relative",
+    "summary": "A length in relation to some known length.",
+    "file": "chunks/docs/layout/relative.md"
+  },
+  {
+    "category": "layout",
+    "topic": "repeat",
+    "summary": "Repeats content to the available space.",
+    "file": "chunks/docs/layout/repeat.md"
+  },
+  {
+    "category": "layout",
+    "topic": "rotate",
+    "summary": "Rotates content without affecting layout.",
+    "file": "chunks/docs/layout/rotate.md"
+  },
+  {
+    "category": "layout",
+    "topic": "scale",
+    "summary": "Scales content without affecting layout.",
+    "file": "chunks/docs/layout/scale.md"
+  },
+  {
+    "category": "layout",
+    "topic": "skew",
+    "summary": "Skews content.",
+    "file": "chunks/docs/layout/skew.md"
+  },
+  {
+    "category": "layout",
+    "topic": "stack",
+    "summary": "Arranges content and spacing horizontally or vertically.",
+    "file": "chunks/docs/layout/stack.md"
+  },
+  {
+    "category": "layout",
+    "topic": "v",
+    "summary": "Inserts vertical spacing into a flow of blocks.",
+    "file": "chunks/docs/layout/v.md"
+  },
+  {
+    "category": "math",
+    "topic": "index",
+    "summary": "Typst has special [syntax] and library functions to typeset mathematical formulas. Math formulas can be displayed inline with text or as separate bloc",
+    "file": "chunks/docs/math/index.md"
+  },
+  {
+    "category": "math",
+    "topic": "accent",
+    "summary": "Attaches an accent to a base.",
+    "file": "chunks/docs/math/accent.md"
+  },
+  {
+    "category": "math",
+    "topic": "attach",
+    "summary": "Subscript, superscripts, and limits.",
+    "file": "chunks/docs/math/attach.md"
+  },
+  {
+    "category": "math",
+    "topic": "binom",
+    "summary": "A binomial expression.",
+    "file": "chunks/docs/math/binom.md"
+  },
+  {
+    "category": "math",
+    "topic": "cancel",
+    "summary": "Displays a diagonal line over a part of an equation.",
+    "file": "chunks/docs/math/cancel.md"
+  },
+  {
+    "category": "math",
+    "topic": "cases",
+    "summary": "A case distinction.",
+    "file": "chunks/docs/math/cases.md"
+  },
+  {
+    "category": "math",
+    "topic": "class",
+    "summary": "Forced use of a certain math class.",
+    "file": "chunks/docs/math/class.md"
+  },
+  {
+    "category": "math",
+    "topic": "equation",
+    "summary": "A mathematical equation.",
+    "file": "chunks/docs/math/equation.md"
+  },
+  {
+    "category": "math",
+    "topic": "frac",
+    "summary": "A mathematical fraction.",
+    "file": "chunks/docs/math/frac.md"
+  },
+  {
+    "category": "math",
+    "topic": "lr",
+    "summary": "Delimiter matching.",
+    "file": "chunks/docs/math/lr.md"
+  },
+  {
+    "category": "math",
+    "topic": "mat",
+    "summary": "A matrix.",
+    "file": "chunks/docs/math/mat.md"
+  },
+  {
+    "category": "math",
+    "topic": "op",
+    "summary": "A text operator in an equation.",
+    "file": "chunks/docs/math/op.md"
+  },
+  {
+    "category": "math",
+    "topic": "primes",
+    "summary": "Grouped primes.   ``` $ a'''_b = a^'''_b $",
+    "file": "chunks/docs/math/primes.md"
+  },
+  {
+    "category": "math",
+    "topic": "roots",
+    "summary": "Square and non-square roots.",
+    "file": "chunks/docs/math/roots.md"
+  },
+  {
+    "category": "math",
+    "topic": "sizes",
+    "summary": "Forced size styles for expressions within formulas.",
+    "file": "chunks/docs/math/sizes.md"
+  },
+  {
+    "category": "math",
+    "topic": "stretch",
+    "summary": "Stretches a glyph.",
+    "file": "chunks/docs/math/stretch.md"
+  },
+  {
+    "category": "math",
+    "topic": "styles",
+    "summary": "Alternate letterforms within formulas.",
+    "file": "chunks/docs/math/styles.md"
+  },
+  {
+    "category": "math",
+    "topic": "underover",
+    "summary": "Delimiters above or below parts of an equation.",
+    "file": "chunks/docs/math/underover.md"
+  },
+  {
+    "category": "math",
+    "topic": "variants",
+    "summary": "Alternate typefaces within formulas.",
+    "file": "chunks/docs/math/variants.md"
+  },
+  {
+    "category": "math",
+    "topic": "vec",
+    "summary": "A column vector.",
+    "file": "chunks/docs/math/vec.md"
+  },
+  {
+    "category": "model",
+    "topic": "index",
+    "summary": "Document structuring.",
+    "file": "chunks/docs/model/index.md"
+  },
+  {
+    "category": "model",
+    "topic": "bibliography",
+    "summary": "A bibliography / reference listing.",
+    "file": "chunks/docs/model/bibliography.md"
+  },
+  {
+    "category": "model",
+    "topic": "cite",
+    "summary": "Cite a work from the bibliography.",
+    "file": "chunks/docs/model/cite.md"
+  },
+  {
+    "category": "model",
+    "topic": "document",
+    "summary": "The root element of a document and its metadata.",
+    "file": "chunks/docs/model/document.md"
+  },
+  {
+    "category": "model",
+    "topic": "emph",
+    "summary": "Emphasizes content by toggling italics.   If the current [text style] is `\"normal\"`, this turns it into `\"italic\"`.  If it is already `\"italic\"` or `\"",
+    "file": "chunks/docs/model/emph.md"
+  },
+  {
+    "category": "model",
+    "topic": "enum",
+    "summary": "A numbered list.",
+    "file": "chunks/docs/model/enum.md"
+  },
+  {
+    "category": "model",
+    "topic": "figure",
+    "summary": "A figure with an optional caption.",
+    "file": "chunks/docs/model/figure.md"
+  },
+  {
+    "category": "model",
+    "topic": "footnote",
+    "summary": "A footnote.",
+    "file": "chunks/docs/model/footnote.md"
+  },
+  {
+    "category": "model",
+    "topic": "heading",
+    "summary": "A section heading.",
+    "file": "chunks/docs/model/heading.md"
+  },
+  {
+    "category": "model",
+    "topic": "link",
+    "summary": "Links to a URL or a location in the document.",
+    "file": "chunks/docs/model/link.md"
+  },
+  {
+    "category": "model",
+    "topic": "list",
+    "summary": "A bullet list.",
+    "file": "chunks/docs/model/list.md"
+  },
+  {
+    "category": "model",
+    "topic": "numbering",
+    "summary": "Applies a numbering to a sequence of numbers.",
+    "file": "chunks/docs/model/numbering.md"
+  },
+  {
+    "category": "model",
+    "topic": "outline",
+    "summary": "A table of contents, figures, or other elements.",
+    "file": "chunks/docs/model/outline.md"
+  },
+  {
+    "category": "model",
+    "topic": "par",
+    "summary": "A logical subdivison of textual content.",
+    "file": "chunks/docs/model/par.md"
+  },
+  {
+    "category": "model",
+    "topic": "parbreak",
+    "summary": "A paragraph break.",
+    "file": "chunks/docs/model/parbreak.md"
+  },
+  {
+    "category": "model",
+    "topic": "quote",
+    "summary": "Displays a quote alongside an optional attribution.",
+    "file": "chunks/docs/model/quote.md"
+  },
+  {
+    "category": "model",
+    "topic": "ref",
+    "summary": "A reference to a label or bibliography.",
+    "file": "chunks/docs/model/ref.md"
+  },
+  {
+    "category": "model",
+    "topic": "strong",
+    "summary": "Strongly emphasizes content by increasing the font weight.",
+    "file": "chunks/docs/model/strong.md"
+  },
+  {
+    "category": "model",
+    "topic": "table",
+    "summary": "A table of items.",
+    "file": "chunks/docs/model/table.md"
+  },
+  {
+    "category": "model",
+    "topic": "terms",
+    "summary": "A list of terms and their descriptions.",
+    "file": "chunks/docs/model/terms.md"
+  },
+  {
+    "category": "model",
+    "topic": "title",
+    "summary": "A document title.",
+    "file": "chunks/docs/model/title.md"
+  },
+  {
+    "category": "pdf",
+    "topic": "index",
+    "summary": "PDF files focus on accurately describing documents visually, but also have facilities for annotating their structure. This hybrid approach makes them ",
+    "file": "chunks/docs/pdf/index.md"
+  },
+  {
+    "category": "pdf",
+    "topic": "artifact",
+    "summary": "Marks content as a PDF artifact.",
+    "file": "chunks/docs/pdf/artifact.md"
+  },
+  {
+    "category": "pdf",
+    "topic": "attach",
+    "summary": "A file that will be attached to the output PDF.",
+    "file": "chunks/docs/pdf/attach.md"
+  },
+  {
+    "category": "pdf",
+    "topic": "data-cell",
+    "summary": "Explicitly defines this cell as a data cell.",
+    "file": "chunks/docs/pdf/data-cell.md"
+  },
+  {
+    "category": "pdf",
+    "topic": "header-cell",
+    "summary": "Explicitly defines a cell as a header cell.",
+    "file": "chunks/docs/pdf/header-cell.md"
+  },
+  {
+    "category": "pdf",
+    "topic": "table-summary",
+    "summary": "A summary of the purpose and structure of a complex table.",
+    "file": "chunks/docs/pdf/table-summary.md"
+  },
+  {
+    "category": "png",
+    "topic": "index",
+    "summary": "Instead of creating a PDF, Typst can also directly render pages to PNG raster graphics. PNGs are losslessly compressed images that can contain one pag",
+    "file": "chunks/docs/png/index.md"
+  },
+  {
+    "category": "scripting",
+    "topic": "index",
+    "summary": "Typst embeds a powerful scripting language. You can automate your documents and create more sophisticated styles with code. Below is an overview over ",
+    "file": "chunks/docs/scripting/index.md"
+  },
+  {
+    "category": "styling",
+    "topic": "index",
+    "summary": "Typst includes a flexible styling system that automatically applies styling of your choice to your document. With set rules, you can configure basic p",
+    "file": "chunks/docs/styling/index.md"
+  },
+  {
+    "category": "svg",
+    "topic": "index",
+    "summary": "Instead of creating a PDF, Typst can also directly render pages to scalable vector graphics (SVGs), which are the preferred format for embedding vecto",
+    "file": "chunks/docs/svg/index.md"
+  },
+  {
+    "category": "symbols",
+    "topic": "index",
+    "summary": "These two modules give names to symbols and emoji to make them easy to insert with a normal keyboard. Alternatively, you can also always directly ente",
+    "file": "chunks/docs/symbols/index.md"
+  },
+  {
+    "category": "symbols",
+    "topic": "emoji",
+    "summary": "Named emojis.",
+    "file": "chunks/docs/symbols/emoji.md"
+  },
+  {
+    "category": "symbols",
+    "topic": "sym",
+    "summary": "Named general symbols.",
+    "file": "chunks/docs/symbols/sym.md"
+  },
+  {
+    "category": "syntax",
+    "topic": "index",
+    "summary": "Typst is a markup language. This means that you can use simple syntax to accomplish common layout tasks. The lightweight markup syntax is complemented",
+    "file": "chunks/docs/syntax/index.md"
+  },
+  {
+    "category": "text",
+    "topic": "index",
+    "summary": "Text styling.",
+    "file": "chunks/docs/text/index.md"
+  },
+  {
+    "category": "text",
+    "topic": "highlight",
+    "summary": "Highlights text with a background color.",
+    "file": "chunks/docs/text/highlight.md"
+  },
+  {
+    "category": "text",
+    "topic": "linebreak",
+    "summary": "Inserts a line break.",
+    "file": "chunks/docs/text/linebreak.md"
+  },
+  {
+    "category": "text",
+    "topic": "lorem",
+    "summary": "Creates blind text.",
+    "file": "chunks/docs/text/lorem.md"
+  },
+  {
+    "category": "text",
+    "topic": "lower",
+    "summary": "Converts a string or content to lowercase.",
+    "file": "chunks/docs/text/lower.md"
+  },
+  {
+    "category": "text",
+    "topic": "overline",
+    "summary": "Adds a line over text.",
+    "file": "chunks/docs/text/overline.md"
+  },
+  {
+    "category": "text",
+    "topic": "raw",
+    "summary": "Raw text with optional syntax highlighting.",
+    "file": "chunks/docs/text/raw.md"
+  },
+  {
+    "category": "text",
+    "topic": "smallcaps",
+    "summary": "Displays text in small capitals.",
+    "file": "chunks/docs/text/smallcaps.md"
+  },
+  {
+    "category": "text",
+    "topic": "smartquote",
+    "summary": "A language-aware quote that reacts to its context.",
+    "file": "chunks/docs/text/smartquote.md"
+  },
+  {
+    "category": "text",
+    "topic": "strike",
+    "summary": "Strikes through text.",
+    "file": "chunks/docs/text/strike.md"
+  },
+  {
+    "category": "text",
+    "topic": "sub",
+    "summary": "Renders text in subscript.",
+    "file": "chunks/docs/text/sub.md"
+  },
+  {
+    "category": "text",
+    "topic": "super",
+    "summary": "Renders text in superscript.",
+    "file": "chunks/docs/text/super.md"
+  },
+  {
+    "category": "text",
+    "topic": "text",
+    "summary": "Customizes the look and layout of text in a variety of ways.",
+    "file": "chunks/docs/text/text.md"
+  },
+  {
+    "category": "text",
+    "topic": "underline",
+    "summary": "Underlines text.",
+    "file": "chunks/docs/text/underline.md"
+  },
+  {
+    "category": "text",
+    "topic": "upper",
+    "summary": "Converts a string or content to uppercase.",
+    "file": "chunks/docs/text/upper.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "index",
+    "summary": "Drawing and data visualization.",
+    "file": "chunks/docs/visualize/index.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "circle",
+    "summary": "A circle with optional content.",
+    "file": "chunks/docs/visualize/circle.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "color",
+    "summary": "A color in a specific color space.",
+    "file": "chunks/docs/visualize/color.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "curve",
+    "summary": "A curve consisting of movements, lines, and B\u00e9zier segments.",
+    "file": "chunks/docs/visualize/curve.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "ellipse",
+    "summary": "An ellipse with optional content.",
+    "file": "chunks/docs/visualize/ellipse.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "gradient",
+    "summary": "A color gradient.",
+    "file": "chunks/docs/visualize/gradient.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "image",
+    "summary": "A raster or vector graphic.",
+    "file": "chunks/docs/visualize/image.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "line",
+    "summary": "A line from one point to another.",
+    "file": "chunks/docs/visualize/line.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "path",
+    "summary": "A path through a list of points, connected by B\u00e9zier curves.",
+    "file": "chunks/docs/visualize/path.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "polygon",
+    "summary": "A closed polygon.",
+    "file": "chunks/docs/visualize/polygon.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "rect",
+    "summary": "A rectangle with optional content.",
+    "file": "chunks/docs/visualize/rect.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "square",
+    "summary": "A square with optional content.",
+    "file": "chunks/docs/visualize/square.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "stroke",
+    "summary": "Defines how to draw a line.",
+    "file": "chunks/docs/visualize/stroke.md"
+  },
+  {
+    "category": "visualize",
+    "topic": "tiling",
+    "summary": "A repeating tiling fill.",
+    "file": "chunks/docs/visualize/tiling.md"
+  }
+]
