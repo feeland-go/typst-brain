@@ -1,0 +1,15 @@
+[brain]
+version = "5.0"
+typst_min_version = "0.12.0"
+max_reference_tokens = 3000  # Configurable token budget threshold
+lazy_revalidation = false     # true = validate patterns on-access, false = batch
+
+[sync]
+# Tambahkan path repo klien di sini
+repos = [
+  # "~/projects/proposals",
+  # "~/projects/funding-repo",
+]
+
+[audit]
+last_audit_date = ""  # Format: YYYY-MM-DD
