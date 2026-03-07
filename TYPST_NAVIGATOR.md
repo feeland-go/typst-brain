@@ -2,7 +2,7 @@
 typst_min_version: "0.12.0"
 typst_max_version: "0.14.x"
 updated_at: "2026-03-07"
-token_count: 0  # Update setelah selesai
+token_count: 655
 last_audit_date: ""
 ---
 
