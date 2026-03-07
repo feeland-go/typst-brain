@@ -2,7 +2,7 @@
 typst_min_version: "0.12.0"
 typst_max_version: "0.14.x"
 updated_at: "2026-03-07"
-token_count: 655
+token_count: 641
 last_audit_date: ""
 ---
 
@@ -20,18 +20,11 @@ last_audit_date: ""
 | Tag | Chunk yang Di-load | Trigger |
 |-----|-------------------|---------|
 | needs-basic | `core/quick-reference.md` | Selalu aktif untuk task .typ |
-| needs-table | `chunks/03-table-figure.md` | "buat tabel", "data grid", "table" |
-| needs-math | `chunks/04-math-symbols.md` | "equation", "formula", "integral" |
-| needs-layout | `chunks/02-layout-page.md` | "multi-column", "grid layout", "sidebar" |
-| needs-script | `chunks/01-syntax-scripting.md` | "custom function", "loop", "template logic" |
-| needs-data | `chunks/07-data-loading.md` | "dari CSV", "import JSON", "data file" |
-| needs-styling | `chunks/05-text-styling.md` | "highlight", "color", "decoration" |
-| needs-introspect | `chunks/06-introspection.md` | "counter", "state", "query" |
+| needs-docs | CLI: `python3 $TYPST_BRAIN_HOME/scripts/search_docs.py "keyword"` | "dokumentasi", "fungsi", "tabel", "rumus", "math", "layout", "scripting", "styling" |
 | needs-package | `packages/_index.md` → `packages/{name}.md` | "gunakan {package}", "@preview/" |
 | needs-template | `templates/_index.md` → `templates/{name}.md` | "template {name}" |
 | needs-slides | `slides/slides-quickref.md` | "presentasi", "slide", "deck" |
 | needs-font | CLI: `typst fonts --font-path $TYPST_BRAIN_HOME/fonts \| grep` | "font X", compile error font |
-| needs-docs | CLI: `python3 $TYPST_BRAIN_HOME/scripts/search_docs.py "keyword"` | "dokumentasi", "cara menggunakan fungsi", "referensi resmi" |
 
 ## How to use needs-docs
 Jika LLM membutuhkan dokumentasi detail tentang fungsi atau topik spesifik yang tidak ada di `core/quick-reference.md`:

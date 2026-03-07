@@ -36,23 +36,14 @@ class TestResult:
 def test_chunks_exist():
     """Verify all chunk files exist."""
     results = []
-    expected = [
-        "01-syntax-scripting.md",
-        "02-layout-page.md",
-        "03-table-figure.md",
-        "04-math-symbols.md",
-        "05-text-styling.md",
-        "06-introspection.md",
-        "07-data-loading.md",
-    ]
     
-    for chunk in expected:
-        path = os.path.join(CHUNKS_DIR, chunk)
-        if os.path.exists(path):
-            results.append(TestResult(f"chunk:{chunk}", True))
-        else:
-            results.append(TestResult(f"chunk:{chunk}", False, f"Missing: {path}"))
-    
+    # We replaced 01-07 legacy chunks with the search_docs indexing system
+    index_path = os.path.join(CHUNKS_DIR, "docs", "index.json")
+    if os.path.exists(index_path):
+        results.append(TestResult("chunk:docs_index", True))
+    else:
+        results.append(TestResult("chunk:docs_index", False, f"Missing: {index_path}"))
+        
     return results
 
 
