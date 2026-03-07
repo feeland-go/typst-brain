@@ -1,16 +1,8 @@
 ---
-id: templates-index
-title: Templates Index
-type: index
-created: 2025-01-01
-updated: 2025-01-01
-version: "1.0"
-tags: [index, templates]
+updated_at: "2026-03-07"
+token_count: 0
 ---
-
 # Templates Index
-
-Reusable document templates and boilerplate.
-
-| Template | Type | Description | Verified | Last Used |
-|----------|------|-------------|----------|-----------|
+<!-- Auto-updated by scrape_template.py. Jangan edit manual. -->
+| Package | Version | Description |
+|---------|---------|-------------|
