@@ -1,129 +1,54 @@
 ---
-id: slides-quickref
-title: Typst Slides Quick Reference
-type: quickref
-created: 2026-03-07
-updated: 2026-03-07
-version: "1.0"
-tags: [slides, presentation, quickref]
+typst_min_version: "0.13.0"
+typst_max_version: "0.14.x"
+updated_at: "2026-03-07"
+token_count: 0
+see_also: [packages/touying.md, packages/polylux.md]
 ---
 
-# Typst Slides Quick Reference
+# Slides Quick Reference
 
-## Presentation Packages
-
-### Touying (Recommended)
+## Option 1: Touying (Recommended — full-featured)
 ```typst
-#import "@preview/touying:0.5.0": *
+#import "@preview/touying:0.6.1": *
+#import themes.university: *
 
-#show: touying-slides.with(
-  theme: "simple",
+#show: university-theme.with(
   aspect-ratio: "16-9",
+  config-info(title: [Title], author: [Author], date: datetime.today(), institution: [Inst]),
 )
+#title-slide()
 
-= Title Slide
-== Section Title
-Content here
+= Section Title
+== Slide Title
+Content here. #pause More after pause.
 ```
+Themes: simple, university, metropolis, dewdrop, aqua.
 
-### Polylux
+## Option 2: Polylux (Minimalist)
 ```typst
 #import "@preview/polylux:0.4.0": *
+#set page(paper: "presentation-16-9")
+#set text(size: 25pt)
 
-#show: polylux.with(
-  aspect-ratio: "16-9",
-)
+#slide[= Title Slide
+Author — Date]
 
-#slide[
-  = Title
-  Content
-]
+#slide[== Slide 1
+Content. #uncover(2)[Appears later.]]
 ```
 
-## Common Slide Patterns
-
-### Title Slide
+## Option 3: Native Typst (Emergency Fallback)
 ```typst
-= Presentation Title
-#align(center)[
-  Author Name
-  Date
-]
+#set page(paper: "presentation-16-9", margin: 2cm)
+#set text(size: 20pt)
+
+// Slide 1
+#align(horizon + center)[= Title
+_Subtitle_]
+#pagebreak()
+
+// Slide 2
+= Heading
+Content
 ```
-
-### Bullet Points
-```typst
-== Key Points
-- First point
-- Second point
-  - Sub-point
-- Third point
-```
-
-### Two Columns
-```typst
-#grid(
-  columns: (1fr, 1fr),
-  [
-    Left column content
-  ],
-  [
-    Right column content
-  ],
-)
-```
-
-### Code Block
-```typst
-```typst
-#let x = 5
-#calc.pow(x, 2)
-```
-```
-
-### Image
-```typst
-#align(center)[
-  #image("diagram.png", width: 80%)
-]
-```
-
-### Math
-```typst
-$ integral_0^infinity e^(-x^2) dif x = sqrt(pi)/2 $
-```
-
-## Themes
-
-### Touying Themes
-- `simple` - Clean, minimal
-- `metropolis` - Modern, flat
-- `university` - Academic style
-
-### Custom Colors
-```typst
-#set text(fill: rgb("#2c3e50"))
-#set page(fill: rgb("#ecf0f1"))
-```
-
-## Slide Layout Tips
-
-| Element | Syntax |
-|---------|--------|
-| Section | `= Title` |
-| Subsection | `== Title` |
-| Page break | `#pagebreak()` |
-| Center | `#align(center)[...]` |
-| Columns | `#grid(columns: (1fr, 1fr), ...)` |
-
-## Export to PDF
-```bash
-typst compile slides.typ slides.pdf
-```
-
-## Best Practices
-1. Keep slides simple - one idea per slide
-2. Use consistent formatting
-3. Limit text - use bullet points
-4. Test on projector before presenting
-5. Export backup PDF
