@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-scrape_template.py — Scrape Typst Universe template docs → compressed .md
+scrape_package.py — Scrape Typst Universe package docs → compressed .md
 
 Usage:
-    python3 scrape_template.py <template-name> [--version X.Y.Z]
+    python3 scrape_package.py <package-name> [--version X.Y.Z]
     
 Exit codes:
     0 = success
-    1 = usage error / template not found
+    1 = usage error / package not found
     2 = network error
     3 = license not permissive
 """
@@ -27,7 +27,7 @@ except ImportError:
     sys.exit(1)
 
 BRAIN = os.environ.get("TYPST_BRAIN_HOME", str(Path(__file__).parent.parent))
-TEMPLATE_DIR = os.path.join(BRAIN, "templates")
+PKG_DIR = os.path.join(BRAIN, "packages")
 CACHE_DIR = os.path.join(BRAIN, ".cache")
 CACHE_TTL = 86400  # 24 hours
 
@@ -69,7 +69,7 @@ def fetch_url(url, max_retries=2):
             return html
         except requests.exceptions.HTTPError as e:
             if e.response.status_code == 404:
-                print(f"ERROR: Template not found: {url}", file=sys.stderr)
+                print(f"ERROR: Package not found: {url}", file=sys.stderr)
                 sys.exit(1)
             if attempt < max_retries:
                 wait = 2 ** (attempt + 1)
@@ -101,16 +101,15 @@ def fetch_json(url):
         return None
 
 
-def extract_template_info(html, name):
-    """Extract key info from Universe template page."""
+def extract_package_info(html, name):
+    """Extract key info from Universe package page."""
     info = {
         "name": name,
         "version": "",
         "description": "",
         "license": "",
         "import_stmt": "",
-        "thumbnail": "",
-        "categories": [],
+        "examples": [],
         "link": f"https://typst.app/universe/package/{name}"
     }
 
@@ -136,20 +135,19 @@ def extract_template_info(html, name):
         if m:
             info["license"] = m.group(1)
 
-    # Import statement for template
+    # Import statement
     if info["version"]:
         info["import_stmt"] = f'#import "@preview/{name}:{info["version"]}": *'
     else:
         info["import_stmt"] = f'#import "@preview/{name}: *"'
 
-    # Thumbnail/image URL
-    m = re.search(r'<img[^>]*src="([^"]+)"[^>]*class="[^"]*preview[^"]*"', html)
-    if m:
-        info["thumbnail"] = m.group(1)
-
-    # Categories
-    cats = re.findall(r'category["\s:-]*([a-zA-Z]+)', html, re.IGNORECASE)
-    info["categories"] = list(set(cats[:3]))
+    # Code examples (first 2)
+    examples = re.findall(r'<code[^>]*>(.*?)</code>', html, re.DOTALL)
+    for ex in examples[:2]:
+        clean = re.sub(r'<[^>]+>', '', ex).strip()
+        clean = re.sub(r'\s+', ' ', clean)
+        if len(clean) > 20 and ('#' in clean or name in clean.lower()):
+            info["examples"].append(clean[:300])
 
     # Description: first paragraph after h1
     m = re.search(r'<p[^>]*>([^<]{20,300})', html)
@@ -160,7 +158,7 @@ def extract_template_info(html, name):
 
 
 def generate_md(info):
-    """Generate compressed .md from template info."""
+    """Generate compressed .md from package info."""
     lines = [
         "---",
         f'typst_min_version: "0.12.0"',
@@ -168,39 +166,33 @@ def generate_md(info):
         f'updated_at: "{time.strftime("%Y-%m-%d")}"',
         f'token_count: 0',
         f'license: "{info["license"]}"',
-        f'thumbnail: "{info["thumbnail"]}"',
         "---",
         "",
         f"# {info['name']}" + (f" (v{info['version']})" if info['version'] else ""),
         "",
         info['description'] if info['description'] else "No description available.",
         "",
-        "## Usage",
+        "## Import",
         "```typst",
         info['import_stmt'],
         "```",
-        "",
-        "## Start New Project",
-        f"```bash",
-        f"typst init @preview/{info['name']}" + (f":{info['version']}" if info['version'] else ""),
-        f"```",
     ]
-    
-    if info["categories"]:
-        lines.extend(["", f"**Categories:** {', '.join(info['categories'])}"])
-    
+    if info["examples"]:
+        lines.extend(["", "## Example"])
+        for ex in info["examples"][:2]:
+            lines.extend(["```typst", ex, "```"])
     lines.extend(["", f"**Full docs:** {info['link']}"])
     return "\n".join(lines)
 
 
 def update_index(name, version, description):
     """Add entry to _index.md."""
-    index_path = os.path.join(TEMPLATE_DIR, "_index.md")
+    index_path = os.path.join(PKG_DIR, "_index.md")
     
     # Create index if doesn't exist
     if not os.path.exists(index_path):
-        os.makedirs(TEMPLATE_DIR, exist_ok=True)
-        header = "# Typst Templates Index\n\n| Template | Version | Description |\n|----------|---------|-------------|\n"
+        os.makedirs(PKG_DIR, exist_ok=True)
+        header = "# Typst Packages Index\n\n| Package | Version | Description |\n|---------|---------|-------------|\n"
         with open(index_path, 'w', encoding='utf-8') as f:
             f.write(header)
     
@@ -216,31 +208,31 @@ def update_index(name, version, description):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: scrape_template.py <template-name> [--version X.Y.Z]", file=sys.stderr)
+        print("Usage: scrape_package.py <package-name> [--version X.Y.Z]", file=sys.stderr)
         print("", file=sys.stderr)
         print("Exit codes:", file=sys.stderr)
         print("  0 = success", file=sys.stderr)
-        print("  1 = usage error / template not found", file=sys.stderr)
+        print("  1 = usage error / package not found", file=sys.stderr)
         print("  2 = network error", file=sys.stderr)
         print("  3 = license not permissive", file=sys.stderr)
         sys.exit(1)
 
     name = sys.argv[1].lower().strip()
     
-    # Validate template name
+    # Validate package name
     if not re.match(r'^[a-z0-9_-]+$', name):
-        print(f"ERROR: Invalid template name: {name}", file=sys.stderr)
+        print(f"ERROR: Invalid package name: {name}", file=sys.stderr)
         sys.exit(1)
 
     # Build URL
     url = f"{UNIVERSE_PKG}/{name}"
-    print(f"Scraping template {url}...")
+    print(f"Scraping {url}...")
     
     html = fetch_url(url)
     if not html:
         sys.exit(2)
 
-    info = extract_template_info(html, name)
+    info = extract_package_info(html, name)
 
     # License check
     if info["license"]:
@@ -253,8 +245,8 @@ def main():
 
     # Generate and save markdown
     md = generate_md(info)
-    os.makedirs(TEMPLATE_DIR, exist_ok=True)
-    output_path = os.path.join(TEMPLATE_DIR, f"{name}.md")
+    os.makedirs(PKG_DIR, exist_ok=True)
+    output_path = os.path.join(PKG_DIR, f"{name}.md")
     
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(md)
