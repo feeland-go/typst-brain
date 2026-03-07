@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
-"""Scrape mdBook documentations recursively into modular Typst Brain chunks.
-Usage: python3 scrape_mdbook.py <package_name> <base_url>"""
+"""Fetch an mdBook to a local directory for LLM processing.
+Usage: python3 fetch_book.py <package_name> <base_url>"""
 
-import sys, os, time, re, html
+import sys, os, time, re, html, shutil
 from urllib.parse import urljoin
 from pathlib import Path
-
-# --- Config ---
-BRAIN = os.environ.get("TYPST_BRAIN_HOME", str(Path(__file__).parent.parent))
-PKG_DIR = os.path.join(BRAIN, "packages")
 
 def fetch_html(url):
     import urllib.request, urllib.error
@@ -21,7 +17,6 @@ def fetch_html(url):
         return None
 
 def html_to_md(h):
-    # Same cleaned markdown converter from scrape_package
     h = re.sub(r'<script.*?</script>', '', h, flags=re.DOTALL)
     h = re.sub(r'<style.*?</style>', '', h, flags=re.DOTALL)
     h = re.sub(r'<svg.*?</svg>', '', h, flags=re.DOTALL)
@@ -45,8 +40,7 @@ def html_to_md(h):
     h = re.sub(r'\n{3,}', '\n\n', h)
     return h.strip()
 
-def process_page(url, idx, title):
-    print(f"[{idx:02d}] Fetching: {title} ({url})")
+def process_page(url, title):
     raw_html = fetch_html(url)
     if not raw_html: return None
     
@@ -64,19 +58,16 @@ def process_page(url, idx, title):
 
 def main():
     if len(sys.argv) < 3:
-        print("Usage: scrape_mdbook.py <package_name> <base_url>")
+        print("Usage: fetch_book.py <package_name> <base_url>")
         sys.exit(1)
         
     pkg = sys.argv[1].lower()
     base_url = sys.argv[2]
     
-    pkg_root = os.path.join(PKG_DIR, pkg)
-    chunks_dir = os.path.join(pkg_root, "chunks")
-    idx_file = os.path.join(pkg_root, "_index.md")
-    
-    if not os.path.exists(idx_file):
-        print(f"Error: {pkg} is not initialized. Run scrape_package.py {pkg} first.")
-        sys.exit(1)
+    out_dir = f"/tmp/raw_mdbook_dump/{pkg}"
+    if os.path.exists(out_dir):
+        shutil.rmtree(out_dir)
+    os.makedirs(out_dir, exist_ok=True)
         
     print(f"Crawl target: {base_url}")
     root_html = fetch_html(base_url)
@@ -89,58 +80,33 @@ def main():
         
     links = re.findall(r'<a.*?href="(.*?)".*?>(.*?)</a>', m_nav.group(1), re.DOTALL)
     
-    # Prune existing chunks
-    print("Clearing existing chunks...")
-    for f in os.listdir(chunks_dir):
-        os.remove(os.path.join(chunks_dir, f))
-        
-    chunk_list = []
-    
-    # Keep track of seen URLs because mdBooks sometimes duplicate links in nav
     seen = set()
     counter = 1
     
     for href, raw_text in links:
-        safe_url = href.split('#')[0] # ignore anchors
+        safe_url = href.split('#')[0] 
         if safe_url in seen or not safe_url: continue
         seen.add(safe_url)
         
         full_url = urljoin(base_url, safe_url)
         clean_title = re.sub(r'<[^>]+>', '', raw_text).strip()
         
-        # Clean title for filename e.g. "1. Getting started" -> "getting-started"
         fs_title = re.sub(r'^[\d\.]+\s*', '', clean_title).lower()
         fs_title = re.sub(r'[^a-z0-9]', '-', fs_title).strip('-')
         fs_title = re.sub(r'-+', '-', fs_title)
-        
         filename = f"{counter:02d}-{fs_title}.md"
         
-        md_content = process_page(full_url, counter, clean_title)
+        print(f"[{counter:02d}] Fetching: {clean_title} -> {filename}")
+        
+        md_content = process_page(full_url, clean_title)
         if md_content:
-            with open(os.path.join(chunks_dir, filename), 'w', encoding='utf-8') as f:
-                f.write(md_content)
-            chunk_list.append((filename, clean_title))
+            with open(os.path.join(out_dir, filename), 'w', encoding='utf-8') as f:
+                f.write(f"# {clean_title}\n\n{md_content}")
             counter += 1
             
         time.sleep(0.5)
         
-    # Inject into _index.md
-    print(f"Injecting {len(chunk_list)} new chunks into _index.md...")
-    with open(idx_file, 'r', encoding='utf-8') as f:
-        idx_content = f.read()
-        
-    # Replace the chunks list
-    head, _ = idx_content.split('## Documentation Chunks', 1)
-    
-    new_idx = head.strip() + "\n\n## Documentation Chunks\n> **LLM INSTRUCTION:** Do NOT read the entire package. Select ONLY 1 or 2 chunks from the list below that match your current task and load them using `view_file`.\n\n"
-    
-    for filename, title in chunk_list:
-        new_idx += f"- `packages/{pkg}/chunks/{filename}` — {title}\n"
-        
-    with open(idx_file, 'w', encoding='utf-8') as f:
-        f.write(new_idx)
-        
-    print(f"Successfully migrated {pkg} to massive mdBook docs!")
+    print(f"Successfully dumped raw mdBook to {out_dir}. LLM can now process it.")
 
 if __name__ == "__main__":
     main()

@@ -2,7 +2,7 @@
 typst_min_version: "0.12.0"
 typst_max_version: "0.14.x"
 updated_at: "2026-03-07"
-token_count: 716
+token_count: 785
 last_audit_date: ""
 ---
 
@@ -31,9 +31,13 @@ Jika LLM membutuhkan dokumentasi detail tentang fungsi bawaan Typst:
 1. Jalankan CLI tool: `python3 $TYPST_BRAIN_HOME/scripts/search_docs.py "nama_fungsi"`
 
 Jika LLM membutuhkan dokumentasi spesifik *package* pihak ketiga (misal Touying, Tablex):
-1. Buka `packages/<nama_package>/_index.md`. Jika file tidak ada, scrape terlebih dahulu: `python3 $TYPST_BRAIN_HOME/scripts/scrape_package.py <nama_package>`.
-2. Baca daftar *Chunks* yang tersedia di dalam *index* tersebut.
-3. Gunakan `view_file` **hanya** untuk membuka 1 atau 2 chunk (misal `packages/touying/chunks/04-quick-start.md`) yang paling relevan dengan masalah saat ini. Jangan menebak path.
+1. Buka `packages/<nama_package>/_index.md`.
+2. Jika file tidak ada, Anda **HARUS** melakukan *scraping* terlebih dahulu menggunakan panduan Agentic Workflow:
+   - Baca `.agents/workflows/scrape-universe.md` untuk package Typst Universe standar.
+   - Baca `.agents/workflows/scrape-github.md` jika Anda diberi link GitHub.
+   - Baca `.agents/workflows/scrape-mdbook.md` jika Anda diberi link manual berformat buku.
+3. Setelah package di-_scrape_, baca daftar *Chunks* yang tersedia di dalam *index*.
+4. Gunakan `view_file` **hanya** untuk membuka 1 atau 2 chunk (misal `packages/touying/chunks/02-api-reference.md`) yang paling relevan dengan masalah saat ini. Jangan menebak path.
 
 ## Disambiguation Rules
 - **"template"**: ada "@preview/" → needs-template. Ada "function"/"reusable" → needs-script. Ada "slide" → needs-slides. Default: needs-template.
