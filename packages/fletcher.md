@@ -6,29 +6,24 @@ token_count: 0
 license: "MIT"
 ---
 
-# fletcher (v0.5.3)
+# fletcher (v0.5.8)
 
-A package for drawing diagrams with Typst. Create flowcharts, sequence diagrams, and other visual diagrams using a simple syntax.
+Draw diagrams with nodes and arrows.
 
 ## Import
 ```typst
-#import "@preview/fletcher:0.5.3": *
+#import "@preview/fletcher:0.5.8": *
 ```
 
 ## Example
 ```typst
-#import "@preview/fletcher:0.5.3": *
-#diagram({
-  node("Start")
-  edge("->")
-  node("Process")
-})
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
 ```
-
-## Key Features
-- Flowchart diagrams
-- Sequence diagrams
-- Node and edge customization
-- Automatic layout
+```typst
+#diagram(cell-size: 15mm, $
+	G edge(f, -&gt;) edge("d", pi, -&gt;&gt;) &amp; im(f) \
+	G slash ker(f) edge("ur", tilde(f), "hook--&gt;")
+$)
+```
 
 **Full docs:** https://typst.app/universe/package/fletcher

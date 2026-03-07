@@ -6,30 +6,28 @@ token_count: 0
 license: "MIT"
 ---
 
-# touying (v0.5.0)
+# touying (v0.6.2)
 
-A powerful presentation package for Typst. Create beautiful slides with themes, animations, and more.
+A powerful package for creating presentation slides in Typst.
 
 ## Import
 ```typst
-#import "@preview/touying:0.5.0": *
+#import "@preview/touying:0.6.2": *
 ```
 
 ## Example
 ```typst
-#import "@preview/touying:0.5.0": *
-#show: touying-slides.with(
-  theme: "simple",
-)
-= Title Slide
-== First Section
-Content here
-```
+= Section
 
-## Key Features
-- Multiple built-in themes
-- Slide transitions
-- Speaker notes
-- PDF export support
+== Subsection
+
+=== First Slide
+
+Hello, Touying!
+
+=== Second Slide
+
+Hello, Typst!
+```
 
 **Full docs:** https://typst.app/universe/package/touying

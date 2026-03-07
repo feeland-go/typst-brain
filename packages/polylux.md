@@ -8,7 +8,7 @@ license: "MIT"
 
 # polylux (v0.4.0)
 
-Polylux is a package for creating presentations in Typst with a focus on simplicity and flexibility.
+Presentation slides creation with Typst
 
 ## Import
 ```typst
@@ -17,20 +17,14 @@ Polylux is a package for creating presentations in Typst with a focus on simplic
 
 ## Example
 ```typst
+// Get Polylux from the official package repository
 #import "@preview/polylux:0.4.0": *
-#show: polylux.with(
-  aspect-ratio: "16-9",
-)
-#slide[
-  = My Presentation
-  Welcome to polylux!
-]
-```
 
-## Key Features
-- Simple slide creation
-- Customizable themes
-- Progress indicators
-- Logo support
+// Make the paper dimensions fit for a presentation and the text larger
+#set page(paper: "presentation-16-9")
+#set text(size: 25pt, font: "Lato")
+
+// Use #slide to create a slide and style it using your favourit
+```
 
 **Full docs:** https://typst.app/universe/package/polylux
