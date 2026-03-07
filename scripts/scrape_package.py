@@ -100,7 +100,7 @@ def html_to_md(h):
 def extract_package_info(html_str, name):
     """Extract key info from Universe package page."""
     info = {"name": name, "version": "", "description": "", "license": "",
-            "import_stmt": "", "examples": [], "link": f"https://typst.app/universe/package/{name}"}
+            "import_stmt": "", "examples": [], "link": f"https://typst.app/universe/package/{name}", "repo": ""}
 
     # Version
     m = re.search(r'<h1[^>]*>\s*' + re.escape(name) + r'\s*</h1>\s*<[^>]*>([0-9.]+)', html_str)
@@ -125,9 +125,10 @@ def extract_package_info(html_str, name):
         if len(clean) > 20 and ('#' in clean or name in clean.lower()):
             info["examples"].append(clean[:300])
 
-    # Description: first paragraph after h1
-    m = re.search(r'<p[^>]*>([^<]{20,300})', html_str)
-    if m: info["description"] = re.sub(r'<[^>]+>', '', m.group(1)).strip()[:200]
+    # Repository string
+    m_repo = re.search(r'Repository:\s*</dt>\s*<dd[^>]*>\s*<a[^>]*href="([^"]+)"', html_str, re.DOTALL)
+    if m_repo:
+        info["repo"] = m_repo.group(1).strip()
 
     return info
 
@@ -193,30 +194,83 @@ if __name__ == "__main__":
         print(f"WARNING: Non-permissive license '{info['license']}'. Skipping.", file=sys.stderr)
         sys.exit(1)
 
-    md = generate_md(info)
-    output_path = os.path.join(PKG_DIR, f"{name}.md")
-    with open(output_path, 'w') as f:
-        f.write(md)
-
     update_index(name, info["version"], info["description"])
-    chars = len(md)
-    print(f"✓ Saved {output_path} (~{chars//4} tokens)")
 
-    # 2) Save Full Documentation (Layer 2)
-    docs_dir = os.path.join(PKG_DIR, "docs")
-    os.makedirs(docs_dir, exist_ok=True)
-    docs_out = os.path.join(docs_dir, f"{name}.md")
+    # --- Hierarchical Chunking Architecture ---
     
+    # Create required directories
+    pkg_root = os.path.join(PKG_DIR, name)
+    chunks_dir = os.path.join(pkg_root, "chunks")
+    os.makedirs(chunks_dir, exist_ok=True)
+    
+    # 1) Reformat and Splitting Logic
     m_readme = re.search(r'<div class="readme.*?(?=</main>|<aside)', html_text, re.DOTALL)
     if not m_readme:
         m_readme = re.search(r'<main.*?>(.*?)</main>', html_text, re.DOTALL)
         
+    chunk_list = []
     if m_readme:
         readme_md = html_to_md(m_readme.group(1))
-        # Add a frontmatter metadata
-        front = f"---\npackage: {name}\nversion: {info['version']}\nurl: {url}\n---\n\n"
-        with open(docs_out, 'w', encoding='utf-8') as f:
-            f.write(front + readme_md)
-        print(f"✓ Saved Full Docs {docs_out} (~{len(readme_md)//4} tokens)")
-    else:
-        print(f"⚠ Could not find README content for {name}")
+        
+        # Split by ## Header
+        parts = re.split(r'\n##\s+', readme_md)
+        overview_text = parts[0].strip()
+        
+        # Write overview chunk
+        if overview_text:
+            out_file = "00-overview.md"
+            with open(os.path.join(chunks_dir, out_file), 'w', encoding='utf-8') as f:
+                f.write(overview_text)
+            chunk_list.append((out_file, "Overview & Basic Info"))
+            
+        # Write subsequent chunks
+        for i, part in enumerate(parts[1:]):
+            if not part.strip(): continue
+            lines = part.split('\n')
+            title = lines[0].strip()
+            content = "\n".join(lines[1:]).strip()
+            
+            # Create a safe filename out of the title
+            safe_title = re.sub(r'[^a-zA-Z0-9-]', '-', title.lower()[:30]).strip('-')
+            if not safe_title: safe_title = f"section-{i}"
+            out_file = f"{i+1:02d}-{safe_title}.md"
+            
+            with open(os.path.join(chunks_dir, out_file), 'w', encoding='utf-8') as f:
+                f.write(f"## {title}\n\n{content}")
+                
+            chunk_list.append((out_file, title))
+
+    # 2) Generate the specific _index.md for this package
+    idx_lines = [
+        f"---",
+        f"package: \"{name}\"",
+        f"version: \"{info['version']}\"",
+        f"updated_at: \"{time.strftime('%Y-%m-%d')}\"",
+        f"---",
+        f"# {name} ({info['version']})",
+        f"",
+        f"{info['description']}",
+        f"",
+        f"- **Import:** `#import \"@preview/{name}:{info['version']}\": *`",
+        f"- **Official:** {info['link']}"
+    ]
+    if info['repo']:
+        idx_lines.append(f"- **Repository:** {info['repo']}")
+        
+    idx_lines.extend([
+        f"",
+        f"## Documentation Chunks",
+        f"> **LLM INSTRUCTION:** Do NOT read the entire package. Select ONLY 1 or 2 chunks from the list below that match your current task and load them using `view_file`.",
+        f""
+    ])
+    
+    for filename, title in chunk_list:
+        idx_lines.append(f"- `packages/{name}/chunks/{filename}` — {title}")
+        
+    if not chunk_list:
+        idx_lines.append(f"*No detailed documentation found for this package.*")
+
+    with open(os.path.join(pkg_root, "_index.md"), 'w', encoding='utf-8') as f:
+        f.write("\n".join(idx_lines))
+        
+    print(f"✓ Created {pkg_root}/_index.md with {len(chunk_list)} chunks")
