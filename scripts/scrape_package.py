@@ -159,6 +159,29 @@ def generate_md(info):
     lines.extend(["", f"**Full docs:** {info['link']}"])
     return "\n".join(lines)
 
+def install_package(name, version):
+    """Force Typst to download the package to the local cache by compiling a dummy import string."""
+    print(f"Installing {name}:{version} to local cache...")
+    import subprocess, tempfile
+    try:
+        with tempfile.NamedTemporaryFile(suffix=".typ", mode="w", delete=False) as f:
+            f.write(f'#import "@preview/{name}:{version}": *\nHello')
+            tmp_path = f.name
+        
+        # We need output to a dummy pdf
+        pdf_path = tmp_path.replace('.typ', '.pdf')
+        result = subprocess.run(["typst", "compile", tmp_path, pdf_path], capture_output=True, text=True, timeout=15)
+        
+        if os.path.exists(tmp_path): os.remove(tmp_path)
+        if os.path.exists(pdf_path): os.remove(pdf_path)
+        
+        if result.returncode == 0:
+            print("✓ Package installed successfully.")
+        else:
+            print(f"⚠ Package install failed, but continuing. Stderr: {result.stderr[:100].strip()}")
+    except Exception as e:
+        print(f"⚠ Could not auto-install package: {e}")
+
 def update_index(name, version, description):
     """Add entry to _index.md."""
     index_path = os.path.join(PKG_DIR, "_index.md")
@@ -193,6 +216,9 @@ if __name__ == "__main__":
     if info["license"] and not is_license_permissive(info["license"]):
         print(f"WARNING: Non-permissive license '{info['license']}'. Skipping.", file=sys.stderr)
         sys.exit(1)
+
+    # Auto-install package to Typst Cache
+    install_package(name, info["version"])
 
     update_index(name, info["version"], info["description"])
 
