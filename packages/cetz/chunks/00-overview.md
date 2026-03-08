@@ -1,7 +1,10 @@
-# cetz
-0.4.2  Drawing with Typst made easy, providing an API inspired by TikZ and Processing. Includes modules for plotting, charts and tree layout.
+# CeTZ Overview
 
-  Featured Package
+[CeTZ](https://github.com/cetz-package/cetz), ein Typst Zeichenpaket, is a drawing package for Typst. Its API is similar to Processing but with relative coordinates and anchors from TikZ.
 
-     
-CeTZ (CeTZ, ein Typst Zeichenpaket) is a library for drawing with Typst with an API inspired by TikZ and Processing.
+Key Features:
+- Coordinate-based drawing.
+- Automatic canvas resizing.
+- Support for relative coordinates and anchors.
+- Styling with stroke and fill.
+- Libraries for plotting, charts, and trees.

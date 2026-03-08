@@ -16,5 +16,5 @@
 - Implemented **Agentic Workflows** (`.agents/workflows/*.md`): Python scripts now only fetch raw data, while the LLM intelligently reads, curates, and summarizes the package chunks based on explicit markdown instructions.
 - Implemented `TYPST_NAVIGATOR.md` to route LLMs globally.
 
-## Current Status: Operational
-The `typst-brain` is entirely functional. The LLM has full autonomy to ingest new external data sources and read internal Typst references at will.
+## Current Status: Operational & Deepened
+The `typst-brain` is entirely functional. Major packages (`touying`, `cetz`, `fletcher`, `polylux`) now have deep, surgery-grade documentation chunks (10-20+ chunks each) providing granular access to animations, API references, and complex examples.
