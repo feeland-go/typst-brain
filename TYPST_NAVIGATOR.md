@@ -35,7 +35,7 @@ Periksa di direktori mana Anda (LLM) sedang beroperasi:
 Jika LLM membutuhkan dokumentasi detail tentang fungsi bawaan Typst:
 1. Jalankan CLI tool: `python3 $TYPST_BRAIN_HOME/scripts/search_docs.py "nama_fungsi"`
 
-Jika LLM membutuhkan dokumentasi spesifik *package* pihak ketiga (misal Touying, Tablex):
+Jika LLM membutuhkan dokumentasi spesifik *package* pihak ketiga (misal Touying, CeTZ):
 1. Buka `packages/<nama_package>/_index.md`.
 2. Jika file tidak ada:
    - **Jika Anda di luar `typst-brain`**: Laporkan ke *user* bahwa *package* belum tersedia di Brain dan minta *user* untuk membuka jendela _chat_ baru di dalam folder `typst-brain` untuk melakukan _scraping_. Jangan *scrape* dari luar.

@@ -10,4 +10,3 @@ token_count: 0
 | touying | 0.6.2 | A powerful package for creating presentation slides in Typst |
 | polylux | 0.4.0 | Presentation slides creation with Typst |
 | cetz | 0.4.2 | Drawing with Typst made easy, providing an API inspired by T |
-| tablex | 0.0.9 | More powerful and customizable tables in Typst. |

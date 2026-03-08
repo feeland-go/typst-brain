@@ -7,7 +7,7 @@ description: How to scrape and chunk standard Typst Universe packages
 This workflow uses the LLM to intelligently split and index standard Typst Universe packages, rather than relying on brittle Python regex `##` splitting.
 
 ## Parameters
-- `<package_name>`: The name of the Typst package on the universe (e.g., `touying`, `tablex`).
+- `<package_name>`: The name of the Typst package on the universe (e.g., `touying`, `cetz`).
 
 ## Tools Needed
 - Python script: `scripts/universe_scraper/fetch_package.py`
