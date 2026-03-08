@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 
 BRAIN = os.environ.get("TYPST_BRAIN_HOME", str(Path(__file__).parent.parent))
-INDEX_FILE = os.path.join(BRAIN, "chunks", "docs", "index.json")
+INDEX_FILE = os.path.join(BRAIN, "docs", "index.json")
 
 def search(query, top_n=3):
     if not os.path.exists(INDEX_FILE):

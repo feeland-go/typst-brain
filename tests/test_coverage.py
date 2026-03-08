@@ -22,7 +22,7 @@ from datetime import datetime
 
 BRAIN = os.environ.get("TYPST_BRAIN_HOME", str(Path(__file__).parent.parent))
 TESTS_DIR = os.path.join(BRAIN, "tests")
-CHUNKS_DIR = os.path.join(BRAIN, "chunks")
+DOCS_DIR = os.path.join(BRAIN, "docs")
 CORE_DIR = os.path.join(BRAIN, "core")
 
 
@@ -38,7 +38,7 @@ def test_chunks_exist():
     results = []
     
     # We replaced 01-07 legacy chunks with the search_docs indexing system
-    index_path = os.path.join(CHUNKS_DIR, "docs", "index.json")
+    index_path = os.path.join(DOCS_DIR, "index.json")
     if os.path.exists(index_path):
         results.append(TestResult("chunk:docs_index", True))
     else:

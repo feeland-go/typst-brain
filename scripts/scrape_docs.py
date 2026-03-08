@@ -9,7 +9,7 @@ import urllib.request
 
 # --- Configurations ---
 BRAIN = os.environ.get("TYPST_BRAIN_HOME", str(Path(__file__).parent.parent))
-DOCS_DIR = os.path.join(BRAIN, "chunks", "docs")
+DOCS_DIR = os.path.join(BRAIN, "docs")
 CACHE_DIR = os.path.join(BRAIN, ".cache")
 CACHE_TTL = 86400 * 7 # 7 days
 BASE_URL = "https://typst.app"
@@ -183,7 +183,7 @@ def main():
             "category": data['category'],
             "topic": data['topic'],
             "summary": data['summary'],
-            "file": f"chunks/docs/{data['category']}/{data['topic']}.md"
+            "file": f"docs/{data['category']}/{data['topic']}.md"
         })
         time.sleep(0.01)
 

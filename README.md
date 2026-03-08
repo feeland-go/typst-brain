@@ -14,7 +14,7 @@ A centralized, LLM-optimized knowledge repository for Typst. This project is bui
 typst-brain/
 ├── .agents/workflows/   # LLM Instructions for the Agentic Scraper Workflows
 ├── TYPST_NAVIGATOR.md   # The Universal Routing Protocol (Symlink this to your projects)
-├── chunks/docs/         # The official Typst Reference Manual, broken into precise functions
+├── docs/                # The official Typst Reference Manual, broken into precise functions
 ├── core/                # Core Typst abstractions (patterns, snippets, quick-reference)
 ├── packages/            # LLM-curated markdown documentations of 3rd-party packages
 └── scripts/             # Python backend tools (fetchers, CLI searches, compilers)

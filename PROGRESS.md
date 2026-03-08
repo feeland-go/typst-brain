@@ -6,7 +6,7 @@
 - Initiated strict Git tracking.
 
 ## Phase 6-8: Intelligent Documentation Chunks (Completed)
-- Completely rewrote `scrape_docs.py` to surgically extract the official Typst Reference Manual into 160+ individual markdown files (`chunks/docs/`).
+- Completely rewrote `scrape_docs.py` to surgically extract the official Typst Reference Manual into 160+ individual markdown files (`docs/`).
 - Created the `search_docs.py` CLI to allow LLMs to query these core functions instantly without massive context overhead.
 
 ## Phase 9-11: Agentic Package Ingestion (Completed)
